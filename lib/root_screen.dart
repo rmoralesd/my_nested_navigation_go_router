@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class RootScreen extends StatelessWidget {
   const RootScreen({super.key, required this.label, required this.detailsPath});
@@ -22,7 +23,7 @@ class RootScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () => context.go(detailsPath),
               child: const Text('View details'),
             )
           ],

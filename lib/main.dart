@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_nested_navigation_go_router/details_screen.dart';
 import 'package:my_nested_navigation_go_router/root_screen.dart';
 import 'package:my_nested_navigation_go_router/scaffold_with_botton_navbar.dart';
 
@@ -43,22 +44,37 @@ class MyApp extends StatelessWidget {
             },
             routes: [
               GoRoute(
-                path: '/a',
-                pageBuilder: (context, state) => NoTransitionPage(
-                  key: state.pageKey,
-                  child:
-                      const RootScreen(label: 'A', detailsPath: '/a/details'),
-                ),
-              ),
+                  path: '/a',
+                  pageBuilder: (context, state) => NoTransitionPage(
+                        key: state.pageKey,
+                        child: const RootScreen(
+                            label: 'A', detailsPath: '/a/details'),
+                      ),
+                  routes: [
+                    GoRoute(
+                      path: 'details',
+                      builder: (context, state) => const DetailsScreen(
+                        label: 'A',
+                      ),
+                    )
+                  ]),
               GoRoute(
-                path: '/b',
-                pageBuilder: (context, state) => NoTransitionPage(
-                    key: state.pageKey,
-                    child: const RootScreen(
-                      label: 'B',
-                      detailsPath: '/b/details',
-                    )),
-              ),
+                  path: '/b',
+                  pageBuilder: (context, state) => NoTransitionPage(
+                        key: state.pageKey,
+                        child: const RootScreen(
+                          label: 'B',
+                          detailsPath: '/b/details',
+                        ),
+                      ),
+                  routes: [
+                    GoRoute(
+                      path: 'details',
+                      builder: (context, state) => const DetailsScreen(
+                        label: 'B',
+                      ),
+                    )
+                  ]),
             ])
       ],
     );
