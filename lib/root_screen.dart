@@ -11,7 +11,7 @@ class RootScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tab root - $label'),
+        title: Center(child: Text('Tab root - $label')),
       ),
       body: Center(
         child: Column(
