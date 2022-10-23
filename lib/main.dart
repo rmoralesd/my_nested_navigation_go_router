@@ -15,6 +15,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tabs = [
+      ScaffoldWithNavBarTabItem(
+        icon: const Icon(Icons.home),
+        initialLocation: '/a',
+        label: 'Section - A',
+      ),
+      ScaffoldWithNavBarTabItem(
+        icon: const Icon(Icons.settings),
+        initialLocation: '/b',
+        label: 'Section - B',
+      )
+    ];
+
     final goRouter = GoRouter(
       initialLocation: '/a',
       navigatorKey: _rootNavigatorKey,
@@ -23,15 +36,29 @@ class MyApp extends StatelessWidget {
         ShellRoute(
             navigatorKey: _shellNavigatorKey,
             builder: (context, state, child) {
-              return ScaffoldWithBottomNavBar(child: child);
+              return ScaffoldWithBottomNavBar(
+                tabs: tabs,
+                child: child,
+              );
             },
             routes: [
               GoRoute(
                 path: '/a',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: RootScreen(label: 'A', detailsPath: '/a/details'),
+                pageBuilder: (context, state) => NoTransitionPage(
+                  key: state.pageKey,
+                  child:
+                      const RootScreen(label: 'A', detailsPath: '/a/details'),
                 ),
-              )
+              ),
+              GoRoute(
+                path: '/b',
+                pageBuilder: (context, state) => NoTransitionPage(
+                    key: state.pageKey,
+                    child: const RootScreen(
+                      label: 'B',
+                      detailsPath: '/b/details',
+                    )),
+              ),
             ])
       ],
     );
