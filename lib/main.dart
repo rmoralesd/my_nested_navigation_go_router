@@ -1,24 +1,36 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:my_nested_navigation_go_router/root_screen.dart';
+
+import 'package:my_nested_navigation_go_router/scaffold_with_botton_navbar.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final routerDelegate = BeamerDelegate(
+    locationBuilder: RoutesLocationBuilder(
+      routes: {
+        '*': (context, state, data) => const ScaffoldWithBottomNavBar(),
+      },
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Go Router Nested Navigation',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const RootScreen(
-          label: 'A',
-          detailsPath: 'detailsPath',
-        ));
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      title: 'Beamer Nested Navigation',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      routerDelegate: routerDelegate,
+      routeInformationParser: BeamerParser(),
+      backButtonDispatcher: BeamerBackButtonDispatcher(
+        delegate: routerDelegate,
+      ),
+    );
   }
 }
