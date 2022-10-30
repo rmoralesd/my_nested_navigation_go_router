@@ -1,3 +1,4 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 
 class RootScreen extends StatelessWidget {
@@ -22,7 +23,7 @@ class RootScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () => Beamer.of(context).beamToNamed(detailsPath),
               child: const Text('View details'),
             )
           ],
